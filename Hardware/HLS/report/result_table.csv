@@ -1,0 +1,4 @@
+config,DSPs,BRAM36,LUTs,FFs,TotalPower_W,DynamicPower_W,WorstSlack_ns,LatencyMean_ms,Throughput_images_s
+14x14,157,6,34872,33588,3.345,2.651,2.694,,
+30x30,157,6,32534,32956,3.283,2.589,2.694,23.3109098033,42.89836855095356
+nothing,0,0,0,0,2.899,2.208,n/a,n/a,n/a

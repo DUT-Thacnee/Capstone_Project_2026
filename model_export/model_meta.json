@@ -1,0 +1,267 @@
+{
+  "dataset": "Fashion-MNIST",
+  "class_names": [
+    "T-shirt/top",
+    "Trouser",
+    "Pullover",
+    "Dress",
+    "Coat",
+    "Sandal",
+    "Shirt",
+    "Sneaker",
+    "Bag",
+    "Ankle boot"
+  ],
+  "input_shape_original": [
+    28,
+    28,
+    1
+  ],
+  "accelerator_input_shape": [
+    28,
+    28,
+    8
+  ],
+  "input_dtype_accelerator": "int8",
+  "channel_expand_method": "replicate grayscale channel 8 times after affine int8 quantization",
+  "train_time_input": "float32 NCHW [N,1,28,28] scaled to [0,1]",
+  "batch_norm": "not used",
+  "quantization_policy": {
+    "activation": "symmetric int8, zero_point=0, per tensor",
+    "weight": "symmetric int8, zero_point=0, per tensor",
+    "bias": "int32 with scale_in * scale_w",
+    "residual": "projection output scale is forced to match residual input scale",
+    "training": "hardware-aware QAT uses the same fixed scales and clamp rules"
+  },
+  "operator_set": [
+    "conv1x1_stride1",
+    "depthwise3x3_stride1_same",
+    "residual_add_same_shape",
+    "global_average_pool",
+    "linear_classifier_cpu"
+  ],
+  "layers": [
+    {
+      "name": "block1_expand",
+      "type": "conv1x1",
+      "h": 28,
+      "w": 28,
+      "cin": 8,
+      "cout": 16,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": 1,
+      "padding": "VALID",
+      "activation": "relu6",
+      "residual": false,
+      "residual_source": "input",
+      "weight_key": "block1_expand_weight",
+      "bias_key": "block1_expand_bias",
+      "quant": {
+        "scale_in": 0.06299212598425197,
+        "scale_w": 0.01971094627080001,
+        "scale_out": 0.047244094488188976,
+        "zero_point_in": 0,
+        "zero_point_w": 0,
+        "zero_point_out": 0,
+        "act_min": 0,
+        "act_max": 127
+      },
+      "quantization": "symmetric_int8_zero_point_0"
+    },
+    {
+      "name": "block1_depthwise",
+      "type": "depthwise3x3",
+      "h": 28,
+      "w": 28,
+      "cin": 16,
+      "cout": 16,
+      "kernel": [
+        3,
+        3
+      ],
+      "stride": 1,
+      "padding": "SAME",
+      "activation": "relu6",
+      "residual": false,
+      "weight_key": "block1_depthwise_weight",
+      "bias_key": "block1_depthwise_bias",
+      "quant": {
+        "scale_in": 0.047244094488188976,
+        "scale_w": 0.017183322606124277,
+        "scale_out": 0.047244094488188976,
+        "zero_point_in": 0,
+        "zero_point_w": 0,
+        "zero_point_out": 0,
+        "act_min": 0,
+        "act_max": 127
+      },
+      "quantization": "symmetric_int8_zero_point_0"
+    },
+    {
+      "name": "block1_project",
+      "type": "conv1x1",
+      "h": 28,
+      "w": 28,
+      "cin": 16,
+      "cout": 8,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": 1,
+      "padding": "VALID",
+      "activation": "none",
+      "residual": true,
+      "weight_key": "block1_project_weight",
+      "bias_key": "block1_project_bias",
+      "quant": {
+        "scale_in": 0.047244094488188976,
+        "scale_w": 0.009870783550532784,
+        "scale_out": 0.06299212598425197,
+        "zero_point_in": 0,
+        "zero_point_w": 0,
+        "zero_point_out": 0,
+        "act_min": -128,
+        "act_max": 127
+      },
+      "quantization": "symmetric_int8_zero_point_0"
+    },
+    {
+      "name": "block2_expand",
+      "type": "conv1x1",
+      "h": 28,
+      "w": 28,
+      "cin": 8,
+      "cout": 24,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": 1,
+      "padding": "VALID",
+      "activation": "relu6",
+      "residual": false,
+      "residual_source": "input",
+      "weight_key": "block2_expand_weight",
+      "bias_key": "block2_expand_bias",
+      "quant": {
+        "scale_in": 0.06299212598425197,
+        "scale_w": 0.026820464397039938,
+        "scale_out": 0.047244094488188976,
+        "zero_point_in": 0,
+        "zero_point_w": 0,
+        "zero_point_out": 0,
+        "act_min": 0,
+        "act_max": 127
+      },
+      "quantization": "symmetric_int8_zero_point_0"
+    },
+    {
+      "name": "block2_depthwise",
+      "type": "depthwise3x3",
+      "h": 28,
+      "w": 28,
+      "cin": 24,
+      "cout": 24,
+      "kernel": [
+        3,
+        3
+      ],
+      "stride": 1,
+      "padding": "SAME",
+      "activation": "relu6",
+      "residual": false,
+      "weight_key": "block2_depthwise_weight",
+      "bias_key": "block2_depthwise_bias",
+      "quant": {
+        "scale_in": 0.047244094488188976,
+        "scale_w": 0.02050881122979592,
+        "scale_out": 0.047244094488188976,
+        "zero_point_in": 0,
+        "zero_point_w": 0,
+        "zero_point_out": 0,
+        "act_min": 0,
+        "act_max": 127
+      },
+      "quantization": "symmetric_int8_zero_point_0"
+    },
+    {
+      "name": "block2_project",
+      "type": "conv1x1",
+      "h": 28,
+      "w": 28,
+      "cin": 24,
+      "cout": 8,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": 1,
+      "padding": "VALID",
+      "activation": "none",
+      "residual": true,
+      "weight_key": "block2_project_weight",
+      "bias_key": "block2_project_bias",
+      "quant": {
+        "scale_in": 0.047244094488188976,
+        "scale_w": 0.033356140917680396,
+        "scale_out": 0.06299212598425197,
+        "zero_point_in": 0,
+        "zero_point_w": 0,
+        "zero_point_out": 0,
+        "act_min": -128,
+        "act_max": 127
+      },
+      "quantization": "symmetric_int8_zero_point_0"
+    },
+    {
+      "name": "global_average_pool",
+      "type": "global_average_pool",
+      "h": 28,
+      "w": 28,
+      "cin": 8,
+      "cout": 8,
+      "kernel": [
+        28,
+        28
+      ],
+      "stride": 1,
+      "padding": "VALID",
+      "activation": "none",
+      "residual": false,
+      "weight_key": null,
+      "bias_key": null,
+      "quant": {
+        "scale_in": 0.06299212598425197,
+        "scale_w": null,
+        "scale_out": 0.06299212598425197,
+        "zero_point_in": 0,
+        "zero_point_w": null,
+        "zero_point_out": 0,
+        "act_min": -128,
+        "act_max": 127
+      },
+      "quantization": "symmetric_int8_zero_point_0"
+    }
+  ],
+  "classifier": {
+    "name": "classifier",
+    "type": "linear_cpu",
+    "in_features": 8,
+    "out_features": 10,
+    "weight_key": "classifier_weight",
+    "bias_key": "classifier_bias",
+    "dtype": "float32"
+  },
+  "source_checkpoint": "D:\\cp_source_test\\ai_model_qat_work\\outputs_qat_range8\\best_checkpoint.pt",
+  "checkpoint_metrics": {
+    "train_loss": 0.7436142418225606,
+    "train_acc": 0.7399,
+    "test_loss": 0.7576050569534302,
+    "test_acc": 0.7389,
+    "lr": 0.0
+  }
+}

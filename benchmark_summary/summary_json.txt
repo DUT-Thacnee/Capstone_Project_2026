@@ -1,0 +1,84 @@
+{
+  "fpga": {
+    "samples": 10000,
+    "accuracy": 0.7388,
+    "reference_agreement": 0.9999,
+    "latency_mean_ms": 23.3109098033,
+    "latency_std_ms": 1.2434676425953095,
+    "latency_median_ms": 23.016735,
+    "latency_p90_ms": 23.8739172,
+    "latency_p95_ms": 24.763339,
+    "latency_p99_ms": 28.27075187,
+    "latency_min_ms": 22.776046,
+    "latency_max_ms": 63.026097,
+    "throughput_images_s": 42.89836855095357,
+    "total_time_s": 233.10909803299998,
+    "per_class_accuracy": [
+      0.752,
+      0.904,
+      0.607,
+      0.784,
+      0.593,
+      0.87,
+      0.296,
+      0.798,
+      0.916,
+      0.868
+    ],
+    "profile_mean_ms": {
+      "block1_expand_ms": 2.8526453028000005,
+      "block1_padding_ms": 0.5956775517,
+      "block1_depthwise_ms": 2.6544354737,
+      "block1_project_residual_ms": 2.9689276469000005,
+      "block2_expand_ms": 2.8967728624999998,
+      "block2_padding_ms": 0.6754986454,
+      "block2_depthwise_ms": 2.7192513202,
+      "block2_project_residual_ms": 3.0139113580999997,
+      "gap_ms": 3.1549521333,
+      "classifier_ms": 0.3406232161
+    }
+  },
+  "cpu": {
+    "samples": 10000,
+    "accuracy": 0.7388,
+    "reference_agreement": 0.9999,
+    "latency_mean_ms": 16.0012422585,
+    "latency_std_ms": 0.5025305559597592,
+    "latency_median_ms": 15.986563499999999,
+    "latency_p90_ms": 16.2512133,
+    "latency_p95_ms": 16.6436807,
+    "latency_p99_ms": 18.071592790000004,
+    "latency_min_ms": 15.025433,
+    "latency_max_ms": 42.475722,
+    "throughput_images_s": 62.49514780446445,
+    "total_time_s": 160.012422585,
+    "per_class_accuracy": [
+      0.752,
+      0.904,
+      0.607,
+      0.784,
+      0.593,
+      0.87,
+      0.296,
+      0.798,
+      0.916,
+      0.868
+    ],
+    "profile_mean_ms": {
+      "block1_expand_ms": 1.8746808742,
+      "block1_depthwise_ms": 2.9648476096,
+      "block1_project_residual_ms": 1.6779524952,
+      "block2_expand_ms": 2.5231153056,
+      "block2_depthwise_ms": 4.2837131977,
+      "block2_project_residual_ms": 2.0966306755999997,
+      "gap_ms": 0.37607327690000003,
+      "classifier_ms": 0.0814777346
+    }
+  },
+  "comparison": {
+    "speedup_cpu_over_fpga": 0.6864271876782256,
+    "throughput_gain": 0.6864271876782256,
+    "cpu_fpga_top1_agreement": 1.0,
+    "accuracy_difference_fpga_minus_cpu": 0.0
+  }
+}
